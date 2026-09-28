@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090a0d">
+  <meta name="description" content="Naxsim E-Sports oyuncu topluluğu ve turnuva platformu">
+  <title>Naxsim E-Sports</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="auth-screen" id="auth-screen">
+    <div class="auth-mark"><canvas class="brand-canvas" width="52" height="58"></canvas><span>NAXSIM <b>E-SPORTS</b></span></div>
+    <section class="auth-card">
+      <div class="eyebrow"><span class="live-dot"></span> TOPLULUĞA KATIL</div>
+      <h1>OYUNA <em>GİR.</em></h1>
+      <p class="auth-copy">Lobiler, turnuvalar ve rekabet tek yerde.</p>
+      <div class="auth-tabs"><button class="auth-tab active" data-auth-mode="login">Giriş Yap</button><button class="auth-tab" data-auth-mode="register">Hesap Oluştur</button></div>
+      <form id="auth-form">
+        <label for="auth-username">Kullanıcı Adı</label>
+        <input id="auth-username" name="username" autocomplete="username" minlength="3" maxlength="20" placeholder="oyuncu_adı" required>
+        <label for="auth-password">Şifre</label>
+        <input id="auth-password" name="password" type="password" autocomplete="current-password" placeholder="Şifren" required>
+        <div class="captcha-field" id="captcha-field" hidden>
+          <div class="captcha-heading"><label for="captcha-answer">Güvenlik doğrulaması</label><button type="button" id="captcha-refresh" class="captcha-refresh">Görseli yenile</button></div>
+          <div class="captcha-image-wrap"><img id="captcha-image" alt="Güvenlik doğrulama kodu"><span>Yukarıdaki karakterleri yaz.</span></div>
+          <input id="captcha-answer" name="captchaAnswer" autocomplete="off" maxlength="8" placeholder="Doğrulama kodu">
+        </div>
+        <p class="form-hint" id="password-hint" hidden>En az 8 karakter; büyük harf, küçük harf ve rakam gerekli.</p>
+        <p class="form-error" id="auth-error" aria-live="polite"></p>
+        <button class="button button-primary auth-submit" type="submit">Giriş Yap <span>↗</span></button>
+      </form>
+      <p class="auth-foot">18+ olmayan oyuncular için güvenli ve saygılı oyun alanı.</p>
+    </section>
+    <div class="auth-side-note"><span>TR COMMUNITY</span><span>AMONG US · SINCE 2024</span></div>
+  </div>
+
+  <div class="app-shell" id="app-shell" hidden>
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#dashboard" aria-label="Naxsim ana sayfa"><canvas class="brand-canvas" width="42" height="46"></canvas><span>NAXSIM <small>E-SPORTS</small></span></a>
+      <div class="side-label">MENÜ</div>
+      <nav class="main-nav" aria-label="Ana menü">
+        <button class="nav-link active" data-page="dashboard"><span class="nav-icon">◈</span> Genel Bakış</button>
+        <button class="nav-link" data-page="chat"><span class="nav-icon">◉</span> Sohbet <span class="nav-live"></span></button>
+        <button class="nav-link" data-page="tournaments"><span class="nav-icon">⌘</span> Turnuvalar <span class="nav-count" id="tournament-nav-count">0</span></button>
+        <button class="nav-link" data-page="rankings"><span class="nav-icon">↗</span> Sıralama</button>
+        <button class="nav-link" data-page="badges"><span class="nav-icon">✳</span> Rozetler</button>
+        <button class="nav-link" data-page="profile"><span class="nav-icon">◎</span> Profilim</button>
+        <button class="nav-link admin-nav" data-page="admin" hidden><span class="nav-icon">▤</span> Admin Panel</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="side-season"><div class="season-heading"><span>AKTİF SEZON</span><span class="season-dot"></span></div><strong>SEZON 04</strong><small>Şampiyonluk yarışı sürüyor</small><div class="season-progress"><i></i></div><div class="season-meta"><span>HAFTA 08</span><span>12 GÜN KALDI</span></div></div>
+        <button class="user-mini" id="profile-shortcut"><span class="avatar avatar-small" id="side-avatar">N</span><span class="user-mini-copy"><strong id="side-username">Oyuncu</strong><small id="side-role">Üye</small></span><span class="user-menu-dot">···</span></button>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="icon-button menu-toggle" id="menu-toggle" aria-label="Menüyü aç">☰</button>
+        <div class="breadcrumb"><span>NAXSIM</span><b>/</b><strong id="breadcrumb-page">GENEL BAKIŞ</strong></div>
+        <div class="topbar-right"><span class="server-state"><i></i> SUNUCU AKTİF</span><button class="icon-button notification-button" aria-label="Bildirimler">♧<i></i></button><button class="top-avatar" id="top-avatar">N</button></div>
+      </header>
+
+      <div class="content-wrap">
+        <section class="page-view active" id="page-dashboard">
+          <div class="page-heading"><div><div class="eyebrow"><span class="live-dot"></span> TOPLULUK MERKEZİ</div><h1>ARENA'YA <em>HOŞ GELDİN.</em></h1><p>Bugün hangi lobide karşılaşacağız?</p></div><button class="button button-primary" data-page-link="tournaments">Turnuvaları Keşfet <span>↗</span></button></div>
+          <div class="hero-strip"><div class="hero-copy"><span class="hero-kicker">NAXSIM SEASON 04 <i></i> KAYITLAR AÇIK</span><h2>SAHNE <span>SENİN.</span></h2><p>Yeni sezon başladı. Takımını kur, yerini al.</p><button class="button button-light" data-page-link="tournaments">Sezona Katıl <span>↗</span></button></div><div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="hero-emblem"><canvas class="brand-canvas" width="126" height="138"></canvas></div><span class="hero-coordinate">37° 34' N<br>36° 56' E</span><span class="hero-season">04</span></div><div class="hero-index">01 <i></i> 03</div></div>
+          <div class="section-heading"><div><span class="section-index">01</span><h2>SAHA DURUMU</h2></div><span class="updated-label">CANLI GÜNCELLEME</span></div>
+          <div class="stat-grid">
+            <article class="stat-panel"><div class="stat-top"><span>ÇEVRİMİÇİ OYUNCU</span><span class="stat-mark green">◉</span></div><div class="stat-value" id="online-count">—</div><div class="stat-foot"><i class="green-dot"></i> Şu an sahada</div><div class="stat-spark spark-green"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+            <article class="stat-panel"><div class="stat-top"><span>AÇIK TURNUVA</span><span class="stat-mark red">⌘</span></div><div class="stat-value" id="open-count">—</div><div class="stat-foot">Katılıma hazır</div><div class="stat-spark spark-red"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+            <article class="stat-panel"><div class="stat-top"><span>TOPLAM ZAFER</span><span class="stat-mark gold">✦</span></div><div class="stat-value" id="wins-count">—</div><div class="stat-foot">Profilindeki kupalar</div><div class="stat-spark spark-gold"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+            <article class="stat-panel"><div class="stat-top"><span>SEZON PUANI</span><span class="stat-mark blue">↗</span></div><div class="stat-value" id="points-count">—</div><div class="stat-foot">Sıralama puanın</div><div class="stat-spark spark-blue"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+          </div>
+          <div class="dashboard-columns"><section class="data-section"><div class="section-heading"><div><span class="section-index">02</span><h2>SON TURNUVALAR</h2></div><button class="text-button" data-page-link="tournaments">Tümünü gör <span>↗</span></button></div><div class="tournament-list compact-list" id="dashboard-tournaments"></div></section><section class="data-section leaderboard-section"><div class="section-heading"><div><span class="section-index">03</span><h2>İLK 5 OYUNCU</h2></div><button class="text-button" data-page-link="rankings">Sıralama <span>↗</span></button></div><div class="leader-list" id="dashboard-leaderboard"></div></section></div>
+          <footer class="page-footer"><span>© 2026 NAXSIM E-SPORTS</span><span>OYUNUN RUHUNA SAYGI DUY.</span></footer>
+        </section>
+
+        <section class="page-view" id="page-chat">
+          <div class="page-heading"><div><div class="eyebrow"><span class="live-dot"></span> CANLI İLETİŞİM</div><h1>TOPLULUK <em>LOBİSİ.</em></h1><p>Takım arkadaşlarınla buluş, oyuna hazırlan.</p></div><div class="online-pill"><i class="green-dot"></i><strong id="chat-online-count">0</strong> çevrimiçi</div></div>
+          <div class="chat-layout"><aside class="room-rail"><span class="room-rail-label">KANALLAR</span><button class="room-button active" data-room="genel"><span>#</span><div><strong>genel</strong><small>Topluluk sohbeti</small></div><i></i></button><button class="room-button" data-room="turnuva"><span>#</span><div><strong>turnuva</strong><small>Turnuva koordinasyonu</small></div></button><button class="room-button" data-room="lobi"><span>#</span><div><strong>lobi</strong><small>Oyun odası bul</small></div></button><div class="room-note"><span class="room-note-icon">✳</span><strong>İYİ OYUNLAR</strong><small>Saygılı ol, oyunun tadını çıkar.</small></div></aside><section class="chat-panel"><header class="chat-header"><div><strong># <span id="active-room-name">genel</span></strong><small>Herkese açık sohbet</small></div><button class="icon-button chat-more" aria-label="Sohbet seçenekleri">···</button></header><div class="chat-messages" id="chat-messages"><div class="chat-empty">Bağlanıyor…</div></div><div class="typing-line" id="typing-line" aria-live="polite"></div><form class="chat-composer" id="chat-form"><button class="composer-add" type="button" aria-label="Emoji">＋</button><input id="chat-input" maxlength="500" placeholder="#genel kanalına mesaj gönder" autocomplete="off"><span class="char-count" id="chat-char-count">0/500</span><button class="send-button" type="submit" aria-label="Mesaj gönder">↑</button></form><div class="chat-guidance">ENTER GÖNDERİR <span>·</span> BAĞLANTILAR ENGELLENİR</div></section></div>
+        </section>
+
+        <section class="page-view" id="page-tournaments">
+          <div class="page-heading"><div><div class="eyebrow"><span class="live-dot"></span> REKABET ALANI</div><h1>OYUN <em>TAKVİMİ.</em></h1><p>Turnuvanı bul veya yeni bir mücadele başlat.</p></div><button class="button button-primary" id="create-tournament-button">＋ Turnuva Oluştur</button></div>
+          <div class="tournament-toolbar"><div class="filter-tabs"><button class="filter-tab active" data-filter="all">Tümü <span id="all-tournament-count">0</span></button><button class="filter-tab" data-filter="open">Katılım açık</button><button class="filter-tab" data-filter="finished">Tamamlandı</button></div><span class="list-caption">SON EKLENENLER</span></div>
+          <div class="tournament-list full-list" id="tournament-list"></div>
+        </section>
+
+        <section class="page-view" id="page-rankings">
+          <div class="page-heading"><div><div class="eyebrow"><span class="live-dot"></span> SEZON 04</div><h1>ONUR <em>TABLOSU.</em></h1><p>Her zafer, zirveye bir adım daha yakın.</p></div><div class="rank-season">SEZON SIRALAMASI <strong>04 <i>↗</i></strong></div></div>
+          <div class="ranking-intro"><span>RANK</span><span>OYUNCU</span><span>ZAFER</span><span>TURNUVA</span><span>PUAN</span></div><div class="ranking-list" id="ranking-list"></div>
+        </section>
+
+        <section class="page-view" id="page-badges">
+          <div class="page-heading"><div><div class="eyebrow"><span class="live-dot"></span> BAŞARI KOLEKSİYONU</div><h1>ROZET <em>VİTRİNİ.</em></h1><p>Her rozet, arenada yazılmış bir hikâye.</p></div></div>
+          <div class="badge-showcase" id="badge-showcase"></div>
+          <div class="section-heading badge-rules-heading"><div><span class="section-index">05</span><h2>ROZET KOLEKSİYONU</h2></div></div><div class="badge-collection" id="badge-collection"></div>
+        </section>
+
+        <section class="page-view" id="page-profile">
+          <div class="page-heading"><div><div class="eyebrow"><span class="live-dot"></span> OYUNCU KARTI</div><h1>PROFİL <em>MERKEZİ.</em></h1><p>İstatistiklerin ve başarıların bir arada.</p></div><button class="button button-outline" id="logout-button">Oturumu Kapat</button></div>
+          <div class="profile-layout"><section class="profile-card"><div class="profile-cover"><span>PLAYER PROFILE / 04</span><span class="profile-cover-mark">N</span></div><div class="profile-main"><span class="avatar profile-avatar" id="profile-avatar">N</span><div class="profile-title"><h2 id="profile-username">Oyuncu</h2><span class="role-label" id="profile-role">ÜYE</span></div><button class="button button-outline" id="edit-profile-button">Profili Düzenle</button></div><div class="profile-stats"><div><small>PUAN</small><strong id="profile-points">0</strong></div><div><small>ZAFER</small><strong id="profile-wins">0</strong></div><div><small>TURNUVA</small><strong id="profile-tournaments">0</strong></div><div><small>ÜYELİK</small><strong id="profile-joined">—</strong></div></div></section><section class="profile-badges"><div class="section-heading"><div><span class="section-index">01</span><h2>ROZET KOLEKSİYONU</h2></div></div><div id="profile-badge-list"></div></section></div>
+        </section>
+
+        <section class="page-view" id="page-admin">
+          <div class="page-heading"><div><div class="eyebrow"><span class="live-dot"></span> GÜVENLİ OPERASYON</div><h1>YÖNETİM <em>MASASI.</em></h1><p>Topluluk istatistikleri ve denetim kayıtları.</p></div></div>
+          <div class="admin-stats" id="admin-stats"></div>
+          <div class="admin-tools">
+            <section><div class="section-heading"><div><span class="section-index">01</span><h2>KULLANICI İŞLEMLERİ</h2></div></div><form id="moderation-form" class="moderation-form"><label>Kullanıcı ID<input name="userId" type="number" min="1" required placeholder="Oyuncu ID"></label><label>İşlem<select name="action"><option value="ban">Banla</option><option value="unban">Banı kaldır (admin)</option><option value="mod">Yönetici yap (admin)</option><option value="user">Yönetici yetkisini al (admin)</option></select></label><label>Süre (gün)<input name="days" type="number" min="1" max="30" value="1"></label><label>Sebep<input name="reason" maxlength="200" placeholder="İşlem sebebi"></label><button class="button button-primary" type="submit">İşlemi Uygula</button></form></section>
+            <section><div class="section-heading"><div><span class="section-index">02</span><h2>SON YÖNETİM KAYITLARI</h2></div></div><div id="admin-logs" class="admin-logs"></div></section>
+          </div>
+          <section class="admin-workspace" id="admin-only-workspace">
+            <div class="admin-workspace-grid">
+              <section class="admin-module admin-users-module">
+                <div class="section-heading"><div><span class="section-index">03</span><h2>OYUNCU DİZİNİ</h2></div><span class="module-meta" id="admin-user-total">0 hesap</span></div>
+                <form class="admin-search" id="admin-user-search"><input name="q" maxlength="40" placeholder="Kullanıcı adı ara"><button class="button button-outline" type="submit">Ara</button></form>
+                <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>OYUNCU</th><th>ROL</th><th>DURUM</th><th>İŞLEM</th></tr></thead><tbody id="admin-user-rows"></tbody></table></div>
+                <div class="admin-pagination"><button class="button button-outline" id="admin-users-prev" type="button">← Önceki</button><span id="admin-users-page">1 / 1</span><button class="button button-outline" id="admin-users-next" type="button">Sonraki →</button></div>
+              </section>
+              <section class="admin-module">
+                <div class="section-heading"><div><span class="section-index">04</span><h2>CANLI DUYURU</h2></div></div>
+                <form id="broadcast-form" class="broadcast-form"><label for="broadcast-text">Tüm çevrimiçi oyunculara gönder</label><textarea id="broadcast-text" name="text" maxlength="500" rows="4" placeholder="Topluluğa duyurunu yaz…" required></textarea><div class="broadcast-footer"><span id="broadcast-count">0 / 500</span><button class="button button-primary" type="submit">Duyuruyu Yayınla <span>↗</span></button></div></form>
+              </section>
+              <section class="admin-module">
+                <div class="section-heading"><div><span class="section-index">05</span><h2>SON BANLAR</h2></div><button class="text-button" id="refresh-bans" type="button">Yenile ↻</button></div>
+                <div id="admin-ban-list" class="admin-record-list"></div>
+              </section>
+              <section class="admin-module">
+                <div class="section-heading"><div><span class="section-index">06</span><h2>TURNUVA DENETİMİ</h2></div><button class="text-button" id="refresh-admin-tournaments" type="button">Yenile ↻</button></div>
+                <div id="admin-tournament-list" class="admin-record-list"></div>
+              </section>
+            </div>
+          </section>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="modal-backdrop" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><button class="icon-button modal-close" id="modal-close" aria-label="Kapat">×</button><div class="eyebrow"><span class="live-dot"></span> NAXSIM ARENA</div><h2 id="modal-title">TURNUVA <em>OLUŞTUR.</em></h2><form id="tournament-form"><label for="tournament-name">Turnuva Adı</label><input id="tournament-name" name="name" minlength="3" maxlength="50" placeholder="Örn. Gece Kuşları #08" required><div class="form-row"><label>Oyuncu Sayısı<select name="maxPlayers"><option value="10">10 oyuncu</option><option value="12">12 oyuncu</option><option value="15">15 oyuncu</option><option value="20">20 oyuncu</option></select></label><label>Tür<select name="type"><option value="normal">Normal</option><option value="season">Sezon</option></select></label></div><p class="form-error" id="tournament-error"></p><button class="button button-primary modal-submit" type="submit">Turnuvayı Oluştur <span>↗</span></button></form></section></div>
+  <div class="toast-region" id="toast-region" aria-live="polite"></div>
+  <script src="/socket.io/socket.io.js" defer></script>
+  <script src="/app.js" defer></script>
+</body>
+</html>
